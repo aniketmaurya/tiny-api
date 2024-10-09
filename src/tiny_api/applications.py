@@ -1,14 +1,15 @@
 # applications.py
 from starlette.applications import Starlette
+
 from .routing import APIRouter
 
 
-class MyAPI:
+class TinyAPI:
     def __init__(self, lifespan=None):
         self.router = APIRouter()
         self._app = None  # Initialize app later
         self.lifespan = lifespan
-        self.create_app()    
+        self.create_app()
 
     def create_app(self):
         self._app = Starlette(routes=self.router.routes, lifespan=self.lifespan)

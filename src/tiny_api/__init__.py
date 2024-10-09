@@ -1,1 +1,3 @@
-from .applications import MyAPI
+from .applications import TinyAPI
+
+__all__ = ["TinyAPI"]

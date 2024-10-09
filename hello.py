@@ -11,26 +11,26 @@ class Item(BaseModel):
     price: float
 
 
-@app.router.get('/')
+@app.router.get("/")
 async def hello(request):
-    return JSONResponse({'hello': "world"})
+    return JSONResponse({"hello": "world"})
 
 
-@app.router.post('/items')
+@app.router.post("/items")
 async def create_item(item: Item):
     # Process the item
-    return JSONResponse({'item': item.dict()})
+    return JSONResponse({"item": item.model_dump()})
 
 
-@app.router.get('/items/{item_id}')
+@app.router.get("/items/{item_id}")
 async def read_item(item_id: int):
     # Retrieve the item
-    return JSONResponse({'item_id': item_id})
+    return JSONResponse({"item_id": item_id})
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import uvicorn
 
     app.create_app()
 
-    uvicorn.run(app, host='0.0.0.0', port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
