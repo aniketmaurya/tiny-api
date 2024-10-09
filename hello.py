@@ -1,9 +1,9 @@
 # main.py
-from tiny_api.applications import MyAPI
+from tiny_api import TinyAPI
 from pydantic import BaseModel
 from starlette.responses import JSONResponse
 
-app = MyAPI()
+app = TinyAPI()
 
 
 class Item(BaseModel):

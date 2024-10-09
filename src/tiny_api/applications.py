@@ -9,7 +9,6 @@ class TinyAPI:
         self.router = APIRouter()
         self._app = None  # Initialize app later
         self.lifespan = lifespan
-        self.create_app()
 
     def create_app(self):
         self._app = Starlette(routes=self.router.routes, lifespan=self.lifespan)
@@ -24,4 +23,6 @@ class TinyAPI:
         self._app.add_middleware(middleware, **kwargs)
 
     async def __call__(self, scope, receive, send):
+        if not self._app:
+            self.create_app()
         await self._app(scope, receive, send)
