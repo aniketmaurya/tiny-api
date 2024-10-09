@@ -1,10 +1,4 @@
-# routing.py
-import inspect
 from functools import wraps
-
-from pydantic import BaseModel, ValidationError
-from starlette.requests import Request
-from starlette.responses import JSONResponse
 from starlette.routing import Route
 
 
@@ -34,29 +28,3 @@ class APIRouter:
             return endpoint
 
         return decorator
-
-
-def _create_decorator(self, path, methods):
-    def decorator(func):
-        sig = inspect.signature(func)
-
-        @wraps(func)
-        async def endpoint(request: Request):
-            kwargs = {}
-            for name, param in sig.parameters.items():
-                if param.annotation == Request:
-                    kwargs[name] = request
-                elif issubclass(param.annotation, BaseModel):
-                    try:
-                        data = await request.json()
-                        kwargs[name] = param.annotation(**data)
-                    except ValidationError as e:
-                        return JSONResponse({"errors": e.errors()}, status_code=422)
-                else:
-                    kwargs[name] = request.path_params.get(name)
-            return await func(**kwargs)
-
-        self.add_api_route(path, endpoint, methods)
-        return endpoint
-
-    return decorator

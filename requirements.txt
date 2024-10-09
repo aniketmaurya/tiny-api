@@ -1,4 +1,3 @@
 # Example dependencies
 starlette
 uvicorn
-pydantic
