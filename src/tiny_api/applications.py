@@ -6,11 +6,12 @@ from .routing import APIRouter
 class MyAPI:
     def __init__(self, lifespan=None):
         self.router = APIRouter()
-        self.app = None  # Initialize app later
+        self._app = None  # Initialize app later
         self.lifespan = lifespan
+        self.create_app()    
 
     def create_app(self):
-        self.app = Starlette(routes=self.router.routes, lifespan=self.lifespan)
+        self._app = Starlette(routes=self.router.routes, lifespan=self.lifespan)
 
     def get(self, path, dependencies=None):
         return self.router.get(path)
@@ -19,9 +20,7 @@ class MyAPI:
         self.router.add_api_route(path, endpoint, methods, dependencies)
 
     def add_middleware(self, middleware, **kwargs):
-        self.app.add_middleware(middleware, **kwargs)
+        self._app.add_middleware(middleware, **kwargs)
 
     async def __call__(self, scope, receive, send):
-        if self.app is None:
-            self.create_app()
-        await self.app(scope, receive, send)
+        await self._app(scope, receive, send)

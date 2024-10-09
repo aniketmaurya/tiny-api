@@ -15,7 +15,6 @@ class APIRouter:
 
     def add_api_route(self, path, endpoint, methods, dependencies=None):
         route = Route(path, endpoint=endpoint, methods=methods)
-        print(route)
         self.routes.append(route)
 
     def get(self, path):
