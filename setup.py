@@ -1,13 +1,15 @@
 from setuptools import setup, find_packages
 
+# Read the requirements from the requirements.txt file
+with open("requirements.txt") as f:
+    requirements = f.read().splitlines()
+
 setup(
     name="tiny_api",
     version="0.0.1",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
-    install_requires=[
-        # List your project dependencies here, e.g., 'requests>=2.25.1'
-    ],
+    install_requires=requirements,  # Use the requirements from the file
     entry_points={
         "console_scripts": [
             # Define command-line scripts here, e.g., 'mycommand = tiny_api.module:function'
