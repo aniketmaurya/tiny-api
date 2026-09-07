@@ -1,6 +1,7 @@
 # main.py
-from tiny_api import TinyAPI
 from starlette.responses import JSONResponse
+
+from tiny_api import TinyAPI
 
 app = TinyAPI()
 
