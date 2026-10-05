@@ -1,7 +1,6 @@
 import pytest
-from starlette.testclient import TestClient
-
 from starlette.responses import JSONResponse
+from starlette.testclient import TestClient
 
 from tiny_api import TinyAPI
 
